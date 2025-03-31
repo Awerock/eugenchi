@@ -1,0 +1,47 @@
+.header {
+	position: fixed;
+	top: 2vh;
+	right: 2vh;
+	z-index: 99;
+	&__nav {
+		display: flex;
+		width: fit-content;
+		padding: 16px 34px;
+		justify-content: space-between;
+		align-items: center;
+		border-radius: 44px;
+		background: rgba(224, 224, 224, 0.25);
+		backdrop-filter: blur(2px);
+		gap: 20px;
+		transition: background 0.2s ease-in-out;
+	}
+	&__link {
+		text-transform: lowercase;
+		font-family: 'Roboto Flex', sans-serif;
+		color: $white-color;
+		font-size: 1em;
+		font-style: normal;
+		font-weight: 300;
+		line-height: normal;
+		transition: color 0.2s ease-in-out;
+	}
+}
+
+.header__nav.hovered-about {
+	background: rgba(255, 192, 203, 0.226);
+}
+.header__link.hovered-about {
+	color: $pink-color;
+}
+.header__nav.hovered-case {
+	background: rgba(144, 238, 144, 0.226);
+}
+.header__link.hovered-case {
+	color: $green-color;
+}
+.header__nav.hovered-contact {
+	background: rgba(173, 216, 230, 0.226);
+}
+.header__link.hovered-contact {
+	color: $blue-color;
+}
