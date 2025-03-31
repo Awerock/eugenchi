@@ -1,12 +1,26 @@
-document.addEventListener('mousemove', event => {
+document.addEventListener('DOMContentLoaded', () => {
 	const main = document.querySelector('.main')
-	const { clientX, clientY } = event
-	const { innerWidth, innerHeight } = window
 
-	const xOffset = (clientX / innerWidth - 0.5) * 20 // Adjust the multiplier for different parallax intensity
-	const yOffset = (clientY / innerHeight - 0.5) * 20
+	function handleMouseMove(event) {
+		const { clientX, clientY } = event
+		const { innerWidth, innerHeight } = window
 
-	main.style.backgroundPosition = `calc(50% + ${xOffset}px) calc(50% + ${yOffset}px)`
+		const xOffset = (clientX / innerWidth - 0.5) * 20
+		const yOffset = (clientY / innerHeight - 0.5) * 20
+
+		main.style.backgroundPosition = `calc(50% + ${xOffset}px) calc(50% + ${yOffset}px)`
+	}
+
+	function checkScreenSize() {
+		if (window.innerWidth > 1024) {
+			document.addEventListener('mousemove', handleMouseMove)
+		} else {
+			document.removeEventListener('mousemove', handleMouseMove)
+		}
+	}
+
+	checkScreenSize()
+	window.addEventListener('resize', checkScreenSize)
 })
 
 document.querySelector('#about-link').addEventListener('mouseenter', () => {
