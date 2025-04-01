@@ -23,15 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.addEventListener('resize', checkScreenSize)
 })
 
-document.querySelector('#about-link').addEventListener('mouseenter', () => {
-	document.querySelector('.header__nav').classList.add('hovered-about')
-	document.querySelector('#about-link').classList.add('hovered-about')
-})
-document.querySelector('#about-link').addEventListener('mouseleave', () => {
-	document.querySelector('.header__nav').classList.remove('hovered-about')
-	document.querySelector('#about-link').classList.remove('hovered-about')
-})
-
 document.querySelector('#case-link').addEventListener('mouseenter', () => {
 	document.querySelector('.header__nav').classList.add('hovered-case')
 	document.querySelector('#case-link').classList.add('hovered-case')
@@ -95,6 +86,56 @@ document.querySelector('#vk-link').addEventListener('mouseenter', () => {
 document.querySelector('#vk-link').addEventListener('mouseleave', () => {
 	document.querySelector('.footer__nav').classList.remove('hovered-vk')
 	document.querySelector('#vk-link').classList.remove('hovered-vk')
+})
+
+const aboutLink = document.querySelector('#about-link')
+const aboutSection = document.querySelector('.about')
+const headerNav = document.querySelector('.header__nav')
+const mainName = document.querySelector('.name') // Элемент, который должен получать класс .open
+
+aboutLink.addEventListener('mouseenter', () => {
+	headerNav.classList.add('hovered-about')
+	aboutLink.classList.add('hovered-about')
+})
+
+aboutLink.addEventListener('mouseleave', () => {
+	if (!aboutSection.classList.contains('open')) {
+		headerNav.classList.remove('hovered-about')
+		aboutLink.classList.remove('hovered-about')
+	}
+})
+
+aboutLink.addEventListener('click', event => {
+	// Предотвращаем распространение события, чтобы не сработал клик по document
+	event.stopPropagation()
+	const isOpen = aboutSection.classList.toggle('open')
+
+	if (isOpen) {
+		headerNav.classList.add('hovered-about')
+		aboutLink.classList.add('hovered-about')
+		mainName.classList.add('open') // Добавляем класс .open к .name
+	} else {
+		headerNav.classList.remove('hovered-about')
+		aboutLink.classList.remove('hovered-about')
+		mainName.classList.remove('open') // Убираем класс .open с .name
+	}
+})
+
+// Обработчик для клика вне окна .about
+document.addEventListener('click', event => {
+	// Проверяем, что клик был не внутри .about и не по #about-link
+	if (
+		!aboutSection.contains(event.target) &&
+		!aboutLink.contains(event.target)
+	) {
+		// Закрываем .about, если оно открыто
+		if (aboutSection.classList.contains('open')) {
+			aboutSection.classList.remove('open')
+			headerNav.classList.remove('hovered-about')
+			aboutLink.classList.remove('hovered-about')
+			mainName.classList.remove('open') // Убираем класс .open с .name
+		}
+	}
 })
 
 /* 
